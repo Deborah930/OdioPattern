@@ -22,7 +22,7 @@ class AttaccoMelee implements StrategiaAttacco {
         } else if (pg instanceof Arciere) {
             System.out.println("L'arciere " + pg.getName() + " pugnala l'avversario");
         } else {
-            System.out.println("Attacco Melee eseguito! KAPOOOWWWW!!!");
+            System.out.println("Attacco Melee eseguito!");
 
         }
     }
@@ -44,7 +44,7 @@ class AttaccoMagico implements StrategiaAttacco {
         } else if (pg instanceof Arciere) {
             System.out.println("L'arciere " + pg.getName() + " scocca una freccia magica");
         } else {
-            System.out.println("Attacco Melee eseguito! KAPOOOWWWW!!!");
+            System.out.println("Attacco Magico eseguito!");
 
         }
     }
@@ -66,7 +66,7 @@ class AttaccoDistanza implements StrategiaAttacco {
         } else if (pg instanceof Arciere) {
             System.out.println("L'arciere " + pg.getName() + " prende la mira ed effettua un tiro di precisione");
         } else {
-            System.out.println("Attacco Melee eseguito! KAPOOOWWWW!!!");
+            System.out.println("Attacco a Distanza eseguito!");
 
         }
     }

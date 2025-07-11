@@ -57,82 +57,38 @@ class SessionManager {
  */
 class GameEngineFacade {
 
+    Scanner intScanner;
+    Scanner stringScanner;
+    boolean uscita = false;
+    SessionManager sessione;
+    Notificatore notificatore;
+    Personaggio pg = null;
+    String nomePersonaggio = null;
+
     // metodo per l'avvio del gioco
     public void avvioGioco() {
         // loop principale
-        Scanner intScanner = new Scanner(System.in);
-        Scanner stringScanner = new Scanner(System.in);
-        boolean uscita = false;
-        SessionManager sessione = SessionManager.getIstanza();
-        Notificatore notificatore = new Notificatore();
-        Personaggio pg = null;
-        String nomePersonaggio = null;
+        inizializzazione();
 
         while (!uscita) {
-            System.out.println("Menu Gioco");
-            System.out.println("1. login");
-            System.out.println("2. Scelta personaggio");
-            System.out.println("3. Esegui azione giocatore");
-            System.out.println("4. Invio notifiche");
-            System.out.println("5. exit");
+            System.out.println("=======MENU PRINCIPALE========");
+            System.out.println("1. Inizia Partita");
+            System.out.println("2. Carica Partita (ancora non ho idea come fare dati persistenti dateme tregua)");
+            System.out.println("3. Esci");
             System.out.print("Scelta: ");
 
-            if (!intScanner.hasNextInt()) {
-                System.out.println("Input non valido! Inserisci un numero.");
-                intScanner.next(); // Consuma l'input errato
-                continue;
-            }
-
-            int scelta = intScanner.nextInt();
-            intScanner.nextLine(); // Consuma il newline
+            int scelta = InputNumeri.ottieniInput(intScanner);
 
             switch (scelta) {
                 case 1:
-                    System.out.println("Registrazione..");
-                    System.out.println("Inserire nome: ");
-                    nomePersonaggio = stringScanner.nextLine();
-                    sessione.login(nomePersonaggio);
-
+                    System.out.println("+++++++INIO PARTITA+++++++++");
+                    // metodo per far partire la successione di incontri
                     break;
 
                 case 2:
-                    System.out.println("Inserisci che tipo di giocatore vuoi usare: ");
-
-                    System.out.println("1. Guerriero");
-                    System.out.println("2. Mago");
-                    System.out.println("3. Arciere");
-
-                    notificatore.aggiungiOsservatore(new Alleato(nomePersonaggio));
-                    int scelta2 = intScanner.nextInt();
-                    switch (scelta2) {
-                        case 1:
-                            CreatorePersonaggio creatoreG = new CreatoreGuerriero();
-                            pg = creatoreG.creaPersonaggio(nomePersonaggio);
-                            break;
-                        case 2:
-                            CreatorePersonaggio creatoreM = new CreatoreMago();
-                            pg = creatoreM.creaPersonaggio(nomePersonaggio);
-                            break;
-                        case 3:
-                            CreatorePersonaggio creatoreA = new CreatoreArciere();
-                            pg = creatoreA.creaPersonaggio(nomePersonaggio);
-
-                            break;
-
-                        default:
-                            break;
-                    }
-                    notificatore.aggiungiOsservatore(new Alleato(nomePersonaggio));
+                    System.out.println("Carica Partita non ancora implementato");
                     break;
-
                 case 3:
-                    pg.azione(intScanner);
-                    break;
-                case 4:
-                    notificatore.notificaTutti(pg.getName());
-                    break;
-
-                case 5:
                     uscita = true;
                     System.out.println("Uscita...");
                     break;
@@ -148,6 +104,40 @@ class GameEngineFacade {
         // 3 azione del giocatore
         // 4 invio notifiche
         // 5 output delle notifiche personalizzato
+    }
+
+    public void inizializzazione() {
+        intScanner = new Scanner(System.in);
+        stringScanner = new Scanner(System.in);
+        sessione = SessionManager.getIstanza();
+        notificatore = new Notificatore();
+    }
+
+    public void sceltaPg() {
+        System.out.println("Inserisci che tipo di giocatore vuoi usare: ");
+
+        System.out.println("1. Guerriero");
+        System.out.println("2. Mago");
+        System.out.println("3. Arciere");
+
+        int scelta2 = InputNumeri.ottieniInput(intScanner);
+        switch (scelta2) {
+            case 1:
+                CreatorePersonaggio creatoreG = new CreatoreGuerriero();
+                pg = creatoreG.creaPersonaggio(nomePersonaggio);
+                break;
+            case 2:
+                CreatorePersonaggio creatoreM = new CreatoreMago();
+                pg = creatoreM.creaPersonaggio(nomePersonaggio);
+                break;
+            case 3:
+                CreatorePersonaggio creatoreA = new CreatoreArciere();
+                pg = creatoreA.creaPersonaggio(nomePersonaggio);
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

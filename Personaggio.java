@@ -26,8 +26,9 @@ class InputNumeri {
     }
 }
 
-abstract class PersonaggioBase implements Personaggio {
+abstract class PersonaggioBase implements Personaggio, Notificabile {
     private String name;
+    private int vita = 30;
     private int attacco = 1;
     private int potereMagico = 1;
     private int destrezza = 1;
@@ -68,7 +69,27 @@ abstract class PersonaggioBase implements Personaggio {
         }
     }
 
+    @Override
+    public void riceveNotifica(Notifica notifica) {
+        System.out.println(notifica.getMessaggio());
+
+    }
+
+    @Override
+    public void riceviDanno(Notifica notifica) {
+        System.out.println("Giocatore " + getName() + ": " + notifica.getDanno() + " danni ricevuti");
+
+    }
+
     public abstract void displayMenuAttacchi();
+
+    public int getVita() {
+        return vita;
+    }
+
+    public void setVita(int vita) {
+        this.vita = vita;
+    }
 
     public String getName() {
         return name;
@@ -105,10 +126,6 @@ abstract class PersonaggioBase implements Personaggio {
     public ContextStrategie getStrategy() {
         return strategy;
     }
-
-    public void setStrategy(ContextStrategie strategy) {
-        this.strategy = strategy;
-    }
 }
 
 class Guerriero extends PersonaggioBase {
@@ -119,6 +136,7 @@ class Guerriero extends PersonaggioBase {
         setAttacco(3);
         setDestrezza(2);
         setPotereMagico(1);
+        setVita(50);
     }
 
     @Override
@@ -136,6 +154,7 @@ class Guerriero extends PersonaggioBase {
         System.out.println("3. Lancio della spada");
         System.out.print("Scelta: ");
     }
+
 }
 
 class Mago extends PersonaggioBase {
@@ -146,6 +165,7 @@ class Mago extends PersonaggioBase {
         setAttacco(1);
         setDestrezza(2);
         setPotereMagico(3);
+        setVita(35);
     }
 
     @Override
@@ -173,6 +193,7 @@ class Arciere extends PersonaggioBase {
         setAttacco(2);
         setDestrezza(3);
         setPotereMagico(1);
+        setVita(40);
     }
 
     @Override
