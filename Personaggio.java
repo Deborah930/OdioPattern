@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public interface Personaggio {
     void azione(Scanner intScanner);
+
     String getName();
 }
 
@@ -43,6 +44,8 @@ class Guerriero implements Personaggio {
         strategy.eseguiStrategia();
 
     }
+
+    // switch case per la scelta della strategia
 
     public void scegliStrategia(Scanner intScanner) {
         System.out.println("====MENU ATTACCO===");
@@ -88,6 +91,8 @@ class Mago implements Personaggio {
         return name;
     }
 
+    // switch case per la scelta della strategia
+
     public void scegliStrategia(Scanner intScanner) {
         System.out.println("====MENU ATTACCO===");
         System.out.println("1. Attacco Melee");
@@ -132,6 +137,7 @@ class Arciere implements Personaggio {
 
     }
 
+    // switch case per la scelta della strategia
     public void scegliStrategia(Scanner intScanner) {
         System.out.println("====MENU ATTACCO===");
         System.out.println("1. Attacco Melee");
@@ -159,17 +165,17 @@ class Arciere implements Personaggio {
 
 // 4. Creator: dichiara il Factory Method
 abstract class CreatorePersonaggio {
-    // Factory Method: restituisce un Product
+    // Factory Method: restituisce un Personaggio
     public abstract Personaggio istanziaPersonaggio(String name);
 
-    // Un metodo del creator che utilizza il prodotto
+    // Un metodo del creator che utilizza il personaggio
     public Personaggio creaPersonaggio(String name) {
-        Personaggio pg = istanziaPersonaggio(name); // creazione del prodotto
+        Personaggio pg = istanziaPersonaggio(name); // creazione del personagigo
         return pg;
     }
 }
 
-// 5. ConcreteCreatorA: implementa factoryMethod per ConcreteProductA
+// CreatoreGuerriero: implementa istanziaPersonaggio
 class CreatoreGuerriero extends CreatorePersonaggio {
     @Override
     public Guerriero istanziaPersonaggio(String name) {
@@ -177,7 +183,7 @@ class CreatoreGuerriero extends CreatorePersonaggio {
     }
 }
 
-// 6. ConcreteCreatorB: implementa factoryMethod per ConcreteProductB
+// CreatoreMago: implementa istanziaPersonaggio
 class CreatoreMago extends CreatorePersonaggio {
     @Override
     public Mago istanziaPersonaggio(String name) {
@@ -185,6 +191,7 @@ class CreatoreMago extends CreatorePersonaggio {
     }
 }
 
+// creatoreArciere implementa istanziaPersonaggio
 class CreatoreArciere extends CreatorePersonaggio {
     @Override
     public Arciere istanziaPersonaggio(String name) {
