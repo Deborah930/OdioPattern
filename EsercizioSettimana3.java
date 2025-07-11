@@ -57,14 +57,6 @@ class SessionManager {
  */
 class GameEngineFacade {
 
-    // dichiare le variabili
-    private
-
-    // costruttore
-    GameEngineFacade() {
-
-    }
-
     // metodo per l'avvio del gioco
     public void avvioGioco() {
         // loop principale
@@ -73,8 +65,8 @@ class GameEngineFacade {
         boolean uscita = false;
         SessionManager sessione = SessionManager.getIstanza();
         Notificatore notificatore = new Notificatore();
-        Personaggio pg=null;
-        String nomePersonaggio=null;
+        Personaggio pg = null;
+        String nomePersonaggio = null;
 
         while (!uscita) {
             System.out.println("Menu Gioco");
@@ -98,7 +90,7 @@ class GameEngineFacade {
                 case 1:
                     System.out.println("Registrazione..");
                     System.out.println("Inserire nome: ");
-                     nomePersonaggio = stringScanner.nextLine();
+                    nomePersonaggio = stringScanner.nextLine();
                     sessione.login(nomePersonaggio);
 
                     break;
@@ -137,7 +129,7 @@ class GameEngineFacade {
                     pg.azione(intScanner);
                     break;
                 case 4:
-                    notificatore.notificaTutti(pg.getName() );
+                    notificatore.notificaTutti(pg.getName());
                     break;
 
                 case 5:
