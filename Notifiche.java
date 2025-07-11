@@ -9,43 +9,25 @@ interface OsservatoreGioco {
     void aggiorna(String messaggio);
 }
 
-// Implementazione dell'interfaccia OsservatoreGioco per rappresentare un alleato
-class Alleato implements OsservatoreGioco {
-    
-    // Nome dell'alleato
-    private String nome;
-
-    // Costruttore che inizializza il nome dell'alleato
-    public Alleato(String nome) {
-        this.nome = nome;
-    }
-
-    // Implementazione del metodo aggiorna che stampa il messaggio ricevuto
-    @Override
-    public void aggiorna(String messaggio) {
-        System.out.println(nome + " ha ricevuto: " + messaggio);
-    }
-}
-
 // Classe che gestisce la notifica agli osservatori
 class Notificatore {
     
     // Lista di osservatori registrati
-    private List<OsservatoreGioco> osservatori = new ArrayList<>();
+    private List<OsservatoreGioco> giocatori = new ArrayList<>();
 
     // Metodo per aggiungere un osservatore alla lista
     public void aggiungiOsservatore(OsservatoreGioco o) {
-        osservatori.add(o);
+        giocatori.add(o);
     }
 
     // Metodo per rimuovere un osservatore dalla lista
     public void rimuoviOsservatore(OsservatoreGioco o) {
-        osservatori.remove(o);
+        giocatori.remove(o);
     }
 
     // Metodo per notificare tutti gli osservatori con un messaggio
     public void notificaTutti(String messaggio) {
-        for (OsservatoreGioco o : osservatori) {
+        for (OsservatoreGioco o : giocatori) {
             o.aggiorna(messaggio);
         }
     }

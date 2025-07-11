@@ -26,16 +26,99 @@ class InputNumeri {
     }
 }
 
-class Guerriero implements Personaggio {
+abstract class PersonaggioBase implements Personaggio {
     private String name;
+    private int attacco = 1;
+    private int potereMagico = 1;
+    private int destrezza = 1;
+    private ContextStrategie strategy = new ContextStrategie();
+
+    public PersonaggioBase(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void azione(Scanner intScanner) {
+        scegliStrategia(intScanner);
+        strategy.eseguiStrategia();
+
+    }
+
+    // switch case per la scelta della strategia
+
+    public void scegliStrategia(Scanner intScanner) {
+
+        displayMenuAttacchi();
+
+        int scelta = InputNumeri.ottieniInput(intScanner);
+
+        switch (scelta) {
+            case 1:
+                strategy.setStrategy(new AttaccoMelee(this));
+                break;
+            case 2:
+                strategy.setStrategy(new AttaccoMagico(this));
+                break;
+            case 3:
+                strategy.setStrategy(new AttaccoDistanza(this));
+                break;
+            default:
+                System.out.println("Scelta non valida");
+                break;
+        }
+    }
+
+    public abstract void displayMenuAttacchi();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAttacco() {
+        return attacco;
+    }
+
+    public void setAttacco(int attacco) {
+        this.attacco = attacco;
+    }
+
+    public int getPotereMagico() {
+        return potereMagico;
+    }
+
+    public void setPotereMagico(int potereMagico) {
+        this.potereMagico = potereMagico;
+    }
+
+    public int getDestrezza() {
+        return destrezza;
+    }
+
+    public void setDestrezza(int destrezza) {
+        this.destrezza = destrezza;
+    }
+
+    public ContextStrategie getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(ContextStrategie strategy) {
+        this.strategy = strategy;
+    }
+}
+
+class Guerriero extends PersonaggioBase {
     private ContextStrategie strategy = new ContextStrategie();
 
     public Guerriero(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
+        setAttacco(3);
+        setDestrezza(2);
+        setPotereMagico(1);
     }
 
     @Override
@@ -45,39 +128,24 @@ class Guerriero implements Personaggio {
 
     }
 
-    // switch case per la scelta della strategia
-
-    public void scegliStrategia(Scanner intScanner) {
+    @Override
+    public void displayMenuAttacchi() {
         System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Attacco Melee");
-        System.out.println("2. Attacco Magico");
-        System.out.println("3. Attacco a Distanza");
+        System.out.println("1. Spadata");
+        System.out.println("2. Aura Blade Attack");
+        System.out.println("3. Lancio della spada");
         System.out.print("Scelta: ");
-        int scelta = InputNumeri.ottieniInput(intScanner);
-        switch (scelta) {
-            case 1:
-                strategy.setStrategy(new AttaccoMelee());
-                break;
-            case 2:
-                strategy.setStrategy(new AttaccoMagico());
-                break;
-            case 3:
-                strategy.setStrategy(new AttaccoDistanza());
-                break;
-            default:
-                System.out.println("Scelta non valida");
-                break;
-        }
     }
-
 }
 
-class Mago implements Personaggio {
-    private String name;
+class Mago extends PersonaggioBase {
     private ContextStrategie strategy = new ContextStrategie();
 
     public Mago(String name) {
-        this.name = name;
+        super(name);
+        setAttacco(1);
+        setDestrezza(2);
+        setPotereMagico(3);
     }
 
     @Override
@@ -87,47 +155,24 @@ class Mago implements Personaggio {
 
     }
 
-    public String getName() {
-        return name;
-    }
-
-    // switch case per la scelta della strategia
-
-    public void scegliStrategia(Scanner intScanner) {
+    @Override
+    public void displayMenuAttacchi() {
         System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Attacco Melee");
-        System.out.println("2. Attacco Magico");
-        System.out.println("3. Attacco a Distanza");
+        System.out.println("1. Pugno di Fuoco");
+        System.out.println("2. Fulmine");
+        System.out.println("3. Dardo Incantato");
         System.out.print("Scelta: ");
-        int scelta = InputNumeri.ottieniInput(intScanner);
-        switch (scelta) {
-            case 1:
-                strategy.setStrategy(new AttaccoMelee());
-                break;
-            case 2:
-                strategy.setStrategy(new AttaccoMagico());
-                break;
-            case 3:
-                strategy.setStrategy(new AttaccoDistanza());
-                break;
-            default:
-                System.out.println("Scelta non valida");
-                break;
-        }
     }
-
 }
 
-class Arciere implements Personaggio {
-    private String name;
+class Arciere extends PersonaggioBase {
     private ContextStrategie strategy = new ContextStrategie();
 
     public Arciere(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
+        setAttacco(2);
+        setDestrezza(3);
+        setPotereMagico(1);
     }
 
     @Override
@@ -137,30 +182,14 @@ class Arciere implements Personaggio {
 
     }
 
-    // switch case per la scelta della strategia
-    public void scegliStrategia(Scanner intScanner) {
+    @Override
+    public void displayMenuAttacchi() {
         System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Attacco Melee");
-        System.out.println("2. Attacco Magico");
-        System.out.println("3. Attacco a Distanza");
+        System.out.println("1. Pugnalata");
+        System.out.println("2. Freccia Incantata");
+        System.out.println("3. Tiro di Precisione");
         System.out.print("Scelta: ");
-        int scelta = InputNumeri.ottieniInput(intScanner);
-        switch (scelta) {
-            case 1:
-                strategy.setStrategy(new AttaccoMelee());
-                break;
-            case 2:
-                strategy.setStrategy(new AttaccoMagico());
-                break;
-            case 3:
-                strategy.setStrategy(new AttaccoDistanza());
-                break;
-            default:
-                System.out.println("Scelta non valida");
-                break;
-        }
     }
-
 }
 
 // 4. Creator: dichiara il Factory Method
