@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public interface Personaggio {
     void azione(Scanner intScanner);
+    String getName();
 }
 
 class InputNumeri {
