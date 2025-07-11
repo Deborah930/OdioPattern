@@ -4,7 +4,7 @@ public class SessioneGioco {
     // inizio con 3 mostri max
 }
 
-class DisplayClassi {
+class DisplayEroi {
     CreatoreLadro creatorArciere = new CreatoreLadro();
     CreatoreMago creatoreMago = new CreatoreMago();
     CreatoreGuerriero creatoreGuerriero = new CreatoreGuerriero();
@@ -12,7 +12,7 @@ class DisplayClassi {
     Personaggio pg2 = creatoreMago.creaPersonaggio("Sam");
     Personaggio pg3 = creatoreGuerriero.creaPersonaggio("Rob");
 
-    public static void displayGuerriero() {
+    public void displayGuerriero() {
         System.out.println("╔════════════════════╗");
         System.out.println("║   ▄▄▄████████▄▄▄   ║");
         System.out.println("║  ▄██▄▄▄▄▄▄▄▄▄██▄   ║");
@@ -26,7 +26,7 @@ class DisplayClassi {
 
     }
 
-    public static void displayLadro() {
+    public void displayLadro() {
         System.out.println("╔════════════════════╗");
         System.out.println("║    ▄▄▄▄▄▄▄▄▄▄▄     ║");
         System.out.println("║   ▄███████████▄    ║");
@@ -39,7 +39,7 @@ class DisplayClassi {
         System.out.println("╚════════════════════╝");
     }
 
-    public static void displayMago() {
+    public void displayMago() {
         System.out.println("╔════════════════════╗");
         System.out.println("║     ▄███████▄▄     ║");
         System.out.println("║▄▄▄▄███████████▄▄▄▄▄║");
@@ -52,7 +52,7 @@ class DisplayClassi {
         System.out.println("╚════════════════════╝");
     }
 
-    public static void displayAllCharacters() {
+    public void displayAllCharacters() {
         System.out.println("╔════════════════════╦════════════════════╦════════════════════╗");
         System.out.println("║        TIM         ║        SAM         ║        ROB         ║");
         System.out.println("╠════════════════════╬════════════════════╬════════════════════╣");

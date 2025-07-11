@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        DisplayClassi display = new DisplayClassi();
-        DisplayClassi.displayAllCharacters();
+        DisplayEroi display = new DisplayEroi();
+        display.displayAllCharacters();
         display.displayStats();
     }
 }
