@@ -110,8 +110,7 @@ class GameEngineFacade {
                     creatoreG.creaPersonaggio(nomePersonaggio);
                     creatoreM.creaPersonaggio(nomePersonaggio);
                     creatoreA.creaPersonaggio(nomePersonaggio);
-                    
-                    
+                    notificatore.aggiungiOsservatore(nomePersonaggio);
 
                     break;
 
