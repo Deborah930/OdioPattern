@@ -73,6 +73,8 @@ class GameEngineFacade {
         boolean uscita = false;
         SessionManager sessione = SessionManager.getIstanza();
         Notificatore notificatore = new Notificatore();
+        Personaggio pg=null;
+        String nomePersonaggio=null;
 
         while (!uscita) {
             System.out.println("Menu Gioco");
@@ -96,7 +98,7 @@ class GameEngineFacade {
                 case 1:
                     System.out.println("Registrazione..");
                     System.out.println("Inserire nome: ");
-                    String nomePersonaggio = stringScanner.nextLine();
+                     nomePersonaggio = stringScanner.nextLine();
                     sessione.login(nomePersonaggio);
 
                     break;
@@ -104,22 +106,38 @@ class GameEngineFacade {
                 case 2:
                     System.out.println("Inserisci che tipo di giocatore vuoi usare: ");
 
-                    CreatorePersonaggio creatoreG = new CreatoreGuerriero();
-                    CreatorePersonaggio creatoreM = new CreatoreMago();
-                    CreatorePersonaggio creatoreA = new CreatoreArciere();
-                    creatoreG.creaPersonaggio(nomePersonaggio);
-                    creatoreM.creaPersonaggio(nomePersonaggio);
-                    creatoreA.creaPersonaggio(nomePersonaggio);
-                    
-                    
+                    System.out.println("1. Guerriero");
+                    System.out.println("2. Mago");
+                    System.out.println("3. Arciere");
 
+                    notificatore.aggiungiOsservatore(new Alleato(nomePersonaggio));
+                    int scelta2 = intScanner.nextInt();
+                    switch (scelta2) {
+                        case 1:
+                            CreatorePersonaggio creatoreG = new CreatoreGuerriero();
+                            pg = creatoreG.creaPersonaggio(nomePersonaggio);
+                            break;
+                        case 2:
+                            CreatorePersonaggio creatoreM = new CreatoreMago();
+                            pg = creatoreM.creaPersonaggio(nomePersonaggio);
+                            break;
+                        case 3:
+                            CreatorePersonaggio creatoreA = new CreatoreArciere();
+                            pg = creatoreA.creaPersonaggio(nomePersonaggio);
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                    notificatore.aggiungiOsservatore(new Alleato(nomePersonaggio));
                     break;
 
                 case 3:
-                    // Case 3 logic
+                    pg.azione(intScanner);
                     break;
                 case 4:
-                    // Case 4 logic
+                    notificatore.notificaTutti(pg.getName() );
                     break;
 
                 case 5:
@@ -131,7 +149,7 @@ class GameEngineFacade {
                     System.out.println("Scelta non valida!");
             }
         }
-        scanner.close();
+        intScanner.close();
 
         // 1 registrazione login utente
         // 2 scelta del tipo di personaggio strategia d'attacco
