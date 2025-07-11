@@ -5,6 +5,8 @@ public interface Personaggio {
     void azione(Scanner intScanner);
 
     String getName();
+
+    int getVita();
 }
 
 class InputNumeri {
@@ -29,6 +31,7 @@ class InputNumeri {
 abstract class PersonaggioBase implements Personaggio, Notificabile {
     private String name;
     private int vita = 30;
+    private int vitaRimanente = 30;
     private int attacco = 1;
     private int potereMagico = 1;
     private int destrezza = 1;
@@ -82,6 +85,14 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
     }
 
     public abstract void displayMenuAttacchi();
+
+    public int getVitaRimanente() {
+        return vitaRimanente;
+    }
+
+    public void setVitaRimanente(int vitaRimanente) {
+        this.vitaRimanente = vitaRimanente;
+    }
 
     public int getVita() {
         return vita;
@@ -137,6 +148,7 @@ class Guerriero extends PersonaggioBase {
         setDestrezza(2);
         setPotereMagico(1);
         setVita(50);
+        setVitaRimanente(getVita());
     }
 
     @Override
@@ -166,6 +178,7 @@ class Mago extends PersonaggioBase {
         setDestrezza(2);
         setPotereMagico(3);
         setVita(35);
+        setVitaRimanente(getVita());
     }
 
     @Override
@@ -185,15 +198,16 @@ class Mago extends PersonaggioBase {
     }
 }
 
-class Arciere extends PersonaggioBase {
+class Ladro extends PersonaggioBase {
     private ContextStrategie strategy = new ContextStrategie();
 
-    public Arciere(String name) {
+    public Ladro(String name) {
         super(name);
         setAttacco(2);
         setDestrezza(3);
         setPotereMagico(1);
         setVita(40);
+        setVitaRimanente(getVita());
     }
 
     @Override
@@ -242,9 +256,9 @@ class CreatoreMago extends CreatorePersonaggio {
 }
 
 // creatoreArciere implementa istanziaPersonaggio
-class CreatoreArciere extends CreatorePersonaggio {
+class CreatoreLadro extends CreatorePersonaggio {
     @Override
-    public Arciere istanziaPersonaggio(String name) {
-        return new Arciere(name);
+    public Ladro istanziaPersonaggio(String name) {
+        return new Ladro(name);
     }
 }

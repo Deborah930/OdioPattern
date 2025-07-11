@@ -1,8 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-
-        // SONO STATO UTILE
-        GameEngineFacade engine = new GameEngineFacade();
-        engine.avvioGioco();
+        DisplayClassi display = new DisplayClassi();
+        DisplayClassi.displayAllCharacters();
+        display.displayStats();
     }
 }

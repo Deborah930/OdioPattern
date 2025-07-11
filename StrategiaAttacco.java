@@ -19,8 +19,8 @@ class AttaccoMelee implements StrategiaAttacco {
             System.out.println("Il guerriero " + pg.getName() + " sferra una spadata");
         } else if (pg instanceof Mago) {
             System.out.println("Il mago " + pg.getName() + " tira un pugno infuocato");
-        } else if (pg instanceof Arciere) {
-            System.out.println("L'arciere " + pg.getName() + " pugnala l'avversario");
+        } else if (pg instanceof Ladro) {
+            System.out.println("Il ladro " + pg.getName() + " pugnala l'avversario");
         } else {
             System.out.println("Attacco Melee eseguito!");
 
@@ -41,8 +41,8 @@ class AttaccoMagico implements StrategiaAttacco {
             System.out.println("Il guerriero " + pg.getName() + " incanta la sua lama e attacca");
         } else if (pg instanceof Mago) {
             System.out.println("Il mago " + pg.getName() + " congiura e lancia un fulmine");
-        } else if (pg instanceof Arciere) {
-            System.out.println("L'arciere " + pg.getName() + " scocca una freccia magica");
+        } else if (pg instanceof Ladro) {
+            System.out.println("Il ladro " + pg.getName() + " sputa del veleno");
         } else {
             System.out.println("Attacco Magico eseguito!");
 
@@ -63,8 +63,8 @@ class AttaccoDistanza implements StrategiaAttacco {
             System.out.println("Il guerriero " + pg.getName() + " lancia la sua spada contro il nemico");
         } else if (pg instanceof Mago) {
             System.out.println("Il mago " + pg.getName() + " lancia Dardo Incantato");
-        } else if (pg instanceof Arciere) {
-            System.out.println("L'arciere " + pg.getName() + " prende la mira ed effettua un tiro di precisione");
+        } else if (pg instanceof Ladro) {
+            System.out.println("Il ladro " + pg.getName() + " prende la mira lancia un coltello");
         } else {
             System.out.println("Attacco a Distanza eseguito!");
 
