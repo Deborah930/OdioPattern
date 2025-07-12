@@ -103,3 +103,7 @@ class NotificaConColore implements Notifica {
         return notifica.getDanno();
     }
 }
+
+//da rifare notifica danno
+//notifica status 
+//notifica vittoria/perdita

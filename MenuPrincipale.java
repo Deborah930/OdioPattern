@@ -22,7 +22,7 @@ public class MenuPrincipale {
             System.out.println("3. Esci");
             System.out.print("Scelta: ");
 
-            int scelta = InputNumeri.ottieniInput(intScanner);
+            int scelta = InputNumeri.ottieniInput();
 
             switch (scelta) {
                 case 1:

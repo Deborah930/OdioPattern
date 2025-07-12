@@ -1,4 +1,4 @@
-import java.util.InputMismatchException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public interface Personaggio {
@@ -7,25 +7,8 @@ public interface Personaggio {
     String getName();
 
     int getVita();
-}
 
-class InputNumeri {
-    // metodo che gestisce l'input dell'utente
-    static int ottieniInput(Scanner intScanner) {
-        int scelta;
-        // blocco try/catch per gestire l'input errato di qualcosa che non sia un numero
-        // intero
-        try {
-            scelta = intScanner.nextInt();
-        } catch (InputMismatchException e) {
-            // messaggio di errore e reset del ciclo con scelta = 0
-            System.out.println("Non è un numero riprova");
-            intScanner.nextLine(); // libera il buffer consumando il new line "\n"
-            scelta = 0;
-        }
-
-        return scelta;
-    }
+    ArrayList<String> getPortrait();
 }
 
 abstract class PersonaggioBase implements Personaggio, Notificabile {
@@ -35,6 +18,7 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
     private int attacco = 1;
     private int potereMagico = 1;
     private int destrezza = 1;
+    protected ArrayList<String> portrait = new ArrayList<>();
     private ContextStrategie strategy = new ContextStrategie();
 
     public PersonaggioBase(String name) {
@@ -54,7 +38,7 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
 
         displayMenuAttacchi();
 
-        int scelta = InputNumeri.ottieniInput(intScanner);
+        int scelta = InputNumeri.ottieniInput();
 
         switch (scelta) {
             case 1:
@@ -83,6 +67,8 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
         System.out.println("Giocatore " + getName() + ": " + notifica.getDanno() + " danni ricevuti");
 
     }
+
+    public abstract void setPortrait();
 
     public abstract void displayMenuAttacchi();
 
@@ -149,6 +135,8 @@ class Guerriero extends PersonaggioBase {
         setPotereMagico(1);
         setVita(50);
         setVitaRimanente(getVita());
+        setPortrait();
+
     }
 
     @Override
@@ -160,11 +148,20 @@ class Guerriero extends PersonaggioBase {
 
     @Override
     public void displayMenuAttacchi() {
-        System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Spadata");
-        System.out.println("2. Aura Blade Attack");
-        System.out.println("3. Lancio della spada");
-        System.out.print("Scelta: ");
+        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
+        System.out.println("║  1. Spadata    ║ 2.Aura Blade  ║ 3. Boomerang  ║  4. Indietro  ║");
+        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+    }
+
+    @Override
+    public void setPortrait() {
+        Portrait newPortrait = new Portrait();
+        portrait = newPortrait.portraitGuerriero(this.portrait);
+    }
+
+    @Override
+    public ArrayList<String> getPortrait() {
+        return this.portrait;
     }
 
 }
@@ -179,6 +176,8 @@ class Mago extends PersonaggioBase {
         setPotereMagico(3);
         setVita(35);
         setVitaRimanente(getVita());
+        setPortrait();
+
     }
 
     @Override
@@ -190,11 +189,20 @@ class Mago extends PersonaggioBase {
 
     @Override
     public void displayMenuAttacchi() {
-        System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Pugno di Fuoco");
-        System.out.println("2. Fulmine");
-        System.out.println("3. Dardo Incantato");
-        System.out.print("Scelta: ");
+        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
+        System.out.println("║ 1.Pugno di F.  ║   2.Fulmine   ║ 3.Magic Mssl  ║  4. Indietro  ║");
+        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+    }
+
+    @Override
+    public void setPortrait() {
+        Portrait newPortrait = new Portrait();
+        this.portrait = newPortrait.portraitMago(this.portrait);
+    }
+
+    @Override
+    public ArrayList<String> getPortrait() {
+        return this.portrait;
     }
 }
 
@@ -208,6 +216,7 @@ class Ladro extends PersonaggioBase {
         setPotereMagico(1);
         setVita(40);
         setVitaRimanente(getVita());
+        setPortrait();
     }
 
     @Override
@@ -217,13 +226,21 @@ class Ladro extends PersonaggioBase {
 
     }
 
-    @Override
     public void displayMenuAttacchi() {
-        System.out.println("====MENU ATTACCO===");
-        System.out.println("1. Pugnalata");
-        System.out.println("2. Freccia Incantata");
-        System.out.println("3. Tiro di Precisione");
-        System.out.print("Scelta: ");
+        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
+        System.out.println("║  1.Pugnalata   ║ 2.Sputa Veln  ║ 3.Lancia Lama ║  4. Indietro  ║");
+        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+    }
+
+    @Override
+    public void setPortrait() {
+        Portrait newPortrait = new Portrait();
+        this.portrait = newPortrait.portraitLadro(portrait);
+    }
+
+    @Override
+    public ArrayList<String> getPortrait() {
+        return this.portrait;
     }
 }
 
