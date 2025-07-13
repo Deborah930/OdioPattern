@@ -1,6 +1,25 @@
 import java.util.ArrayList;
 
 public class SessioneGioco {
+    private ArrayList<Personaggio> squadra = Squadra.getInstance();
+    private SceltaEroi scelta = new SceltaEroi();
+
+    public void setTeam() {
+        //istanzia le variabili da aggiungere alla squadra
+        Personaggio pg1 = null;
+        Personaggio pg2 = null;
+        Personaggio pg3 = null;
+
+        //lancia il metodo per scegliere definitivamente i personaggi
+        pg1 = scelta.sceltaPersonaggioConNome();
+        pg2 = scelta.sceltaPersonaggioConNome();
+        pg3 = scelta.sceltaPersonaggioConNome();
+
+        squadra.add(pg1);
+        squadra.add(pg2);
+        squadra.add(pg3);
+    }
+
     // mostra le classi con un menù e poi selezioni Membro#1, Membro#2 e Membro#3
     // inizia la run, un mostro alla volta, 3 vs 1
     // inizio con 3 mostri max
@@ -8,7 +27,6 @@ public class SessioneGioco {
 
 // Scegliendo un personaggio lo si aggiunge al team di gioco (max 3 personaggi)
 class SceltaEroi {
-
     // istanzio le variabili per la scelta degli eroi (si possono scegliere 2 ladri
     // e un mago, 3 guerrieri etc.)
     CreatoreGuerriero creatore1 = new CreatoreGuerriero();
@@ -199,10 +217,4 @@ class DisplayEroi {
         System.out.println("╚════════════════════╝╚════════════════════╝╚════════════════════╝");
 
     }
-
-    
-
-    
-
-    
 }

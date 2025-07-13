@@ -1,20 +1,14 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class PartyManagement {
-    
-    // la ricezione dei danni avviene tramite il sistema di notifche
-
-}
 
 // serve a tenere conto dei personaggi una volta iniziata la sessione di gioco
-class Squadra {
-    private static List<Personaggio> squad;
+public class Squadra {
+    private static ArrayList<Personaggio> squad;
 
     private Squadra() {
     }
 
-    public List<Personaggio> getInstance() {
+    public static ArrayList<Personaggio> getInstance() {
         if (squad == null) {
             return squad = new ArrayList<>();
         }
@@ -38,5 +32,4 @@ class Squadra {
         }
         return scelto;
     }
-
 }
