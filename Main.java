@@ -3,11 +3,9 @@ public class Main {
         //la chiamata statica a GlobalScanner non va toccata
         GlobalScanner.InitScannerInputs();
 
-        InizializzazioneGioco init = new InizializzazioneGioco();
+        MenuPrincipale menu = new MenuPrincipale();
 
-        init.setTeam();
-
-        init.displayPersonaggiScelti();
+        menu.avvioGioco();
 
 
     }

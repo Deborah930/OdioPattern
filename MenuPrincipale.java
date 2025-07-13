@@ -12,7 +12,7 @@ public class MenuPrincipale {
 
             scelta = InputNumeri.ottieniInput();
 
-            // ogni case ritorna la scelta a zero in modo da non terminare automaticamente
+            // ogni case ritorna la scelta a 0 in modo da non terminare automaticamente
             // il programma quando si esce dalla sessione di gioco
             switch (scelta) {
                 case 1:
@@ -26,7 +26,8 @@ public class MenuPrincipale {
                     // INIZIO
                     // a questo punto i personaggi sono stati settati e il combattimento può
                     // avviarsi
-                    combat = new SistemaCombattimento(init.getSquadra());
+                    combat = new SistemaCombattimento(init);
+                    combat.combattimentoPrincipale();
 
                     scelta = 0;
                     break;

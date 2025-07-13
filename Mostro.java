@@ -11,7 +11,11 @@ public interface Mostro {
 
     int getVita();
 
+    void setVita(int danno);
+
     ArrayList<String> getPortrait();
+
+    void displayMostroPortrait();
 }
 
 enum Mostri {
@@ -108,15 +112,18 @@ enum Mostri {
 
 class MostroBase implements Mostro {
     private String name;
-    private int danno;
+    private int dannoMostro;
     private int vita;
     private ArrayList<String> portrait;
     private Random randomChoice = new Random();
 
+    // il costruttore sfrutta il metodo statico factory Mostri.getMostroRandom() per
+    // ottenere e copiare i valori di un mostro in modo da instanziarlo poi nel
+    // combattimento a turni
     public MostroBase() {
         Mostri mostroRandom = Mostri.getMostroRandom();
         this.name = mostroRandom.getNome();
-        this.danno = mostroRandom.getDanno();
+        this.dannoMostro = mostroRandom.getDanno();
         this.vita = mostroRandom.getVita();
         this.portrait = mostroRandom.getRitratto();
 
@@ -125,8 +132,12 @@ class MostroBase implements Mostro {
     // deve fare un attacco a turno e deve printare l'attacco a seconda del mostro
     // richiamato verso uno o più personaggi della squadra
     public int attacco(ArrayList<Personaggio> squadra) {
-        System.out.println("Il " + getName() + " attacca " + squadra.get(randomChoice.nextInt(squadra.size()))
-                + " per il totale di " + getDanno());
+        int sceltaPgAttaccato = randomChoice.nextInt(squadra.size());
+        Personaggio pgAttaccato = squadra.get(sceltaPgAttaccato);
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        System.out.println("Il " + getName() + " attacca " + pgAttaccato + " per " + getDanno() + " danni");
+        System.out.println("╚════════════════════════════════════════════════════════════════╝");
+
         return getDanno();
     }
 
@@ -137,7 +148,7 @@ class MostroBase implements Mostro {
 
     @Override
     public int getDanno() {
-        return danno;
+        return dannoMostro;
     }
 
     @Override
@@ -146,8 +157,40 @@ class MostroBase implements Mostro {
     }
 
     @Override
+    public void setVita(int danno) {
+        this.vita -= danno;
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        System.out.println("Il " + getName() + " riceve " + danno + " danni!");
+        System.out.println("╚════════════════════════════════════════════════════════════════╝");
+
+    }
+
+    @Override
     public ArrayList<String> getPortrait() {
         return portrait;
+    }
+
+    @Override
+    public void displayMostroPortrait() {
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+
+        for (String string : portrait) {
+            // Calcola gli spazi necessari per centrare la stringa
+            int totalSpaces = 21;
+            int stringLength = string.length();
+            int spacesNeeded = totalSpaces - stringLength;
+            int leftSpaces = spacesNeeded / 2;
+            int rightSpaces = spacesNeeded - leftSpaces;
+
+            // Crea la stringa centrata
+            String leftPadding = " ".repeat(leftSpaces);
+            String rightPadding = " ".repeat(rightSpaces);
+            String centeredString = leftPadding + string + rightPadding;
+
+            System.out.println("║                 " + centeredString + "                 ║");
+        }
+
+        System.out.println("╚════════════════════════════════════════════════════════════════╝");
     }
 
     // metodo factory che ritorna un mostro con un portrait casuale

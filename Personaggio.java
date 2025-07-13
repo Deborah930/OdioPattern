@@ -1,17 +1,18 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public interface Personaggio {
-    void azione(Scanner intScanner);
+    int azione();
 
     String getName();
 
     int getVita();
 
     ArrayList<String> getPortrait();
+
+    public void displayMenuAttacchi();
 }
 
-abstract class PersonaggioBase implements Personaggio, Notificabile {
+abstract class PersonaggioBase implements Personaggio {
     private String name;
     private int vita = 30;
     private int vitaRimanente = 30;
@@ -26,15 +27,16 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
     }
 
     @Override
-    public void azione(Scanner intScanner) {
-        scegliStrategia(intScanner);
-        strategy.eseguiStrategia();
+    public int azione() {
+        scegliStrategia();
+        int danno = strategy.eseguiStrategia();
+        return danno;
 
     }
 
     // switch case per la scelta della strategia
 
-    public void scegliStrategia(Scanner intScanner) {
+    public void scegliStrategia() {
 
         displayMenuAttacchi();
 
@@ -54,18 +56,6 @@ abstract class PersonaggioBase implements Personaggio, Notificabile {
                 System.out.println("Scelta non valida");
                 break;
         }
-    }
-
-    @Override
-    public void riceveNotifica(Notifica notifica) {
-        System.out.println(notifica.getMessaggio());
-
-    }
-
-    @Override
-    public void riceviDanno(Notifica notifica) {
-        System.out.println("Giocatore " + getName() + ": " + notifica.getDanno() + " danni ricevuti");
-
     }
 
     public abstract void setPortrait();
@@ -140,17 +130,18 @@ class Guerriero extends PersonaggioBase {
     }
 
     @Override
-    public void azione(Scanner intScanner) {
-        scegliStrategia(intScanner);
-        strategy.eseguiStrategia();
+    public int azione() {
+        scegliStrategia();
+        int danno = strategy.eseguiStrategia();
+        return danno;
 
     }
 
     @Override
     public void displayMenuAttacchi() {
-        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
-        System.out.println("║  1. Spadata    ║ 2.Aura Blade  ║ 3. Boomerang  ║  4. Indietro  ║");
-        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+        System.out.println("╔═══════════════════╦══════════════════════╦═════════════════════╗");
+        System.out.println("║    1. Spadata     ║    2.Aura Blade      ║    3. Boomerang     ║");
+        System.out.println("╚═══════════════════╩══════════════════════╩═════════════════════╝");
     }
 
     @Override
@@ -181,17 +172,18 @@ class Mago extends PersonaggioBase {
     }
 
     @Override
-    public void azione(Scanner intScanner) {
-        scegliStrategia(intScanner);
-        strategy.eseguiStrategia();
+    public int azione() {
+        scegliStrategia();
+        int danno = strategy.eseguiStrategia();
+        return danno;
 
     }
 
     @Override
     public void displayMenuAttacchi() {
-        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
-        System.out.println("║ 1.Pugno di F.  ║   2.Fulmine   ║ 3.Magic Mssl  ║  4. Indietro  ║");
-        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+        System.out.println("╔═══════════════════╦══════════════════════╦═════════════════════╗");
+        System.out.println("║ 1.Pugno di Fuoco  ║     2. Fulmine       ║   3. Magic Missile  ║");
+        System.out.println("╚═══════════════════╩══════════════════════╩═════════════════════╝");
     }
 
     @Override
@@ -220,16 +212,18 @@ class Ladro extends PersonaggioBase {
     }
 
     @Override
-    public void azione(Scanner intScanner) {
-        scegliStrategia(intScanner);
-        strategy.eseguiStrategia();
+    public int azione() {
+        scegliStrategia();
+        int danno = strategy.eseguiStrategia();
+        return danno;
 
     }
 
+    @Override
     public void displayMenuAttacchi() {
-        System.out.println("╔════════════════╦═══════════════╦═══════════════╦═══════════════╗");
-        System.out.println("║  1.Pugnalata   ║ 2.Sputa Veln  ║ 3.Lancia Lama ║  4. Indietro  ║");
-        System.out.println("╚════════════════╩═══════════════╩═══════════════╩═══════════════╝");
+        System.out.println("╔═══════════════════╦══════════════════════╦═════════════════════╗");
+        System.out.println("║   1. Pugnalata    ║    2.Sputa Veleno    ║   3. Lancia Lama    ║");
+        System.out.println("╚═══════════════════╩══════════════════════╩═════════════════════╝");
     }
 
     @Override
