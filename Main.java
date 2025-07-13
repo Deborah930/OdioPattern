@@ -7,6 +7,6 @@ public class Main {
 
         menu.avvioGioco();
 
-
+        GlobalScanner.CloseScannerInputs();
     }
 }

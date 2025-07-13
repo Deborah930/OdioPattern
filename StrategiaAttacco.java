@@ -95,6 +95,11 @@ class AttaccoDistanza implements StrategiaAttacco {
 class ContextStrategie {
     private StrategiaAttacco strategy;
 
+    // Costruttore che imposta una strategia di default
+    public ContextStrategie(Personaggio pg) {
+        this.strategy = new AttaccoMelee(pg); // o altra strategia di default
+    }
+
     public void setStrategy(StrategiaAttacco strategy) {
         this.strategy = strategy;
     }

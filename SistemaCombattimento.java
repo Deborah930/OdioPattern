@@ -27,22 +27,21 @@ public class SistemaCombattimento {
     // metodo che inizia il combattimento a turni, prima ogni giocatore, poi il
     // mostro, ritorna la vittoria o la sconfitta come booleano
     private void combattimentoATurni(Mostro mostroDaCombattere) {
-        // il ciclo si ripete fintantoché almeno uno dei personaggi è in vita
-        while ((squadra.get(0).getVita() > 0 || squadra.get(0).getVita() > 0 || squadra.get(0).getVita() > 0)
-                || mostroDaCombattere.getVita() > 0) {
+        // il ciclo si ripete fintantoché il mostro è in vita
+        while (true) {
             mostroDaCombattere.displayMostroPortrait();
             initCorrente.displayPersonaggiScelti();
             for (Personaggio personaggio : squadra) {
-                personaggio.displayMenuAttacchi();
                 int dannoAMostro = personaggio.azione();
                 mostroDaCombattere.setVita(dannoAMostro);
+                if (mostroDaCombattere.getVita() <= 0) {
+                    System.out.println("============================================================");
+                    System.out.println("+++++++++++++++++++++MOSTRO SCONFITTO+++++++++++++++++++++++");
+                    System.out.println("============================================================");
+                    return;
+                }
             }
-            if (mostroDaCombattere.getVita() <= 0) {
-                System.out.println("============================================================");
-                System.out.println("+++++++++++++++++++++MOSTRO SCONFITTO+++++++++++++++++++++++");
-                System.out.println("============================================================");
 
-            }
         }
     }
 

@@ -20,7 +20,6 @@ abstract class PersonaggioBase implements Personaggio {
     private int potereMagico = 1;
     private int destrezza = 1;
     protected ArrayList<String> portrait = new ArrayList<>();
-    private ContextStrategie strategy = new ContextStrategie();
 
     public PersonaggioBase(String name) {
         this.name = name;
@@ -29,7 +28,7 @@ abstract class PersonaggioBase implements Personaggio {
     @Override
     public int azione() {
         scegliStrategia();
-        int danno = strategy.eseguiStrategia();
+        int danno = getStrategy().eseguiStrategia();
         return danno;
 
     }
@@ -44,13 +43,13 @@ abstract class PersonaggioBase implements Personaggio {
 
         switch (scelta) {
             case 1:
-                strategy.setStrategy(new AttaccoMelee(this));
+                getStrategy().setStrategy(new AttaccoMelee(this));
                 break;
             case 2:
-                strategy.setStrategy(new AttaccoMagico(this));
+                getStrategy().setStrategy(new AttaccoMagico(this));
                 break;
             case 3:
-                strategy.setStrategy(new AttaccoDistanza(this));
+                getStrategy().setStrategy(new AttaccoDistanza(this));
                 break;
             default:
                 System.out.println("Scelta non valida");
@@ -110,13 +109,11 @@ abstract class PersonaggioBase implements Personaggio {
         this.destrezza = destrezza;
     }
 
-    public ContextStrategie getStrategy() {
-        return strategy;
-    }
+    public abstract ContextStrategie getStrategy();
 }
 
 class Guerriero extends PersonaggioBase {
-    private ContextStrategie strategy = new ContextStrategie();
+    private ContextStrategie strategy = new ContextStrategie(this);
 
     public Guerriero(String name) {
         super(name);
@@ -155,10 +152,15 @@ class Guerriero extends PersonaggioBase {
         return this.portrait;
     }
 
+    @Override
+    public ContextStrategie getStrategy() {
+        return this.strategy;
+    }
+
 }
 
 class Mago extends PersonaggioBase {
-    private ContextStrategie strategy = new ContextStrategie();
+    private ContextStrategie strategy = new ContextStrategie(this);
 
     public Mago(String name) {
         super(name);
@@ -196,10 +198,15 @@ class Mago extends PersonaggioBase {
     public ArrayList<String> getPortrait() {
         return this.portrait;
     }
+
+    @Override
+    public ContextStrategie getStrategy() {
+        return this.strategy;
+    }
 }
 
 class Ladro extends PersonaggioBase {
-    private ContextStrategie strategy = new ContextStrategie();
+    private ContextStrategie strategy = new ContextStrategie(this);
 
     public Ladro(String name) {
         super(name);
@@ -235,6 +242,11 @@ class Ladro extends PersonaggioBase {
     @Override
     public ArrayList<String> getPortrait() {
         return this.portrait;
+    }
+
+    @Override
+    public ContextStrategie getStrategy() {
+        return this.strategy;
     }
 }
 
