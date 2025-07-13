@@ -1,32 +1,40 @@
 // Inizio Singleton e controllo del login
 public class MenuPrincipale {
-
-    boolean uscita = false;
-    Notificatore notificatore;
-    String nomePersonaggio = null;
+    private InizializzazioneGioco init = new InizializzazioneGioco();
+    private SistemaCombattimento combat;
 
     // metodo per l'avvio del gioco
     public void avvioGioco() {
-        // loop principale
-        inizializzazione();
         int scelta = 0;
-
+        // loop principale retto sulla scelta iniziale
         while (scelta == 0) {
             displayMenuPrincipale();
 
             scelta = InputNumeri.ottieniInput();
 
+            // ogni case ritorna la scelta a zero in modo da non terminare automaticamente
+            // il programma quando si esce dalla sessione di gioco
             switch (scelta) {
                 case 1:
-                    System.out.println("+++++++INIO PARTITA+++++++++");
-                    // metodo per far partire la scelta del team e poi le battaglie
-                    break;
+                    System.out.println("+++++++++++++++++++INIZIO PARTITA+++++++++++++++++");
 
+                    // scelta del team, chiamare sempre all'inizio ho il meccanismo di combattimento
+                    // non si avvierà mai, lancerà un NullPointerException al richiamo dei suoi
+                    // metodi di istanza
+                    init.setTeam();
+
+                    // INIZIO
+                    // a questo punto i personaggi sono stati settati e il combattimento può
+                    // avviarsi
+                    combat = new SistemaCombattimento(init.getSquadra());
+
+                    scelta = 0;
+                    break;
                 case 2:
                     System.out.println("Carica Partita non ancora implementato");
+                    scelta = 0;
                     break;
                 case 3:
-                    uscita = true;
                     System.out.println("Uscita...");
                     break;
 
@@ -43,10 +51,6 @@ public class MenuPrincipale {
         System.out.println("2. CARICA PARTITA (ancora non ho idea come fare dati persistenti dateme tregua)");
         System.out.println("3. ESCI");
         System.out.print("Scelta: ");
-    }
-
-    public void inizializzazione() {
-        notificatore = new Notificatore();
     }
 
 }

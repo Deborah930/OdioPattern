@@ -3,11 +3,11 @@ public class Main {
         //la chiamata statica a GlobalScanner non va toccata
         GlobalScanner.InitScannerInputs();
 
-        SessioneGioco sessione = new SessioneGioco();
+        InizializzazioneGioco init = new InizializzazioneGioco();
 
-        sessione.setTeam();
+        init.setTeam();
 
-        sessione.displayPersonaggiScelti();
+        init.displayPersonaggiScelti();
 
 
     }
