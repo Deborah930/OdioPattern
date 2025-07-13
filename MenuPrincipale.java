@@ -1,33 +1,25 @@
-import java.util.Scanner;
-
 // Inizio Singleton e controllo del login
 public class MenuPrincipale {
 
-    Scanner intScanner;
-    Scanner stringScanner;
     boolean uscita = false;
     Notificatore notificatore;
-    Personaggio pg = null;
     String nomePersonaggio = null;
 
     // metodo per l'avvio del gioco
     public void avvioGioco() {
         // loop principale
         inizializzazione();
+        int scelta = 0;
 
-        while (!uscita) {
-            System.out.println("=======MENU PRINCIPALE========");
-            System.out.println("1. Inizia Partita");
-            System.out.println("2. Carica Partita (ancora non ho idea come fare dati persistenti dateme tregua)");
-            System.out.println("3. Esci");
-            System.out.print("Scelta: ");
+        while (scelta == 0) {
+            displayMenuPrincipale();
 
-            int scelta = InputNumeri.ottieniInput();
+            scelta = InputNumeri.ottieniInput();
 
             switch (scelta) {
                 case 1:
                     System.out.println("+++++++INIO PARTITA+++++++++");
-                    // metodo per far partire la successione di incontri
+                    // metodo per far partire la scelta del team e poi le battaglie
                     break;
 
                 case 2:
@@ -40,14 +32,20 @@ public class MenuPrincipale {
 
                 default:
                     System.out.println("Scelta non valida!");
+                    scelta = 0;
             }
         }
-        intScanner.close();
+    }
+
+    public void displayMenuPrincipale() {
+        System.out.println("=======MENU PRINCIPALE========");
+        System.out.println("1. INIZIA PARTITA");
+        System.out.println("2. CARICA PARTITA (ancora non ho idea come fare dati persistenti dateme tregua)");
+        System.out.println("3. ESCI");
+        System.out.print("Scelta: ");
     }
 
     public void inizializzazione() {
-        intScanner = new Scanner(System.in);
-        stringScanner = new Scanner(System.in);
         notificatore = new Notificatore();
     }
 
